@@ -17,7 +17,7 @@ const App = {
         starNotaryArtifact.abi,
         deployedNetwork.address,
       );
-
+      this.meta.defaults({from: this.account})
       // get accounts
       const accounts = await web3.eth.getAccounts();
       this.account = accounts[0];
@@ -41,7 +41,10 @@ const App = {
 
   // Implement Task 4 Modify the front end of the DAPP
   lookUp: async function (){
-    
+    const { lookUptokenIdToStarInfo } = this.meta.methods;
+    const id = document.getElementById("lookid").value;
+    const starName = await lookUptokenIdToStarInfo(id).call();
+    App.setStatus("Star Name: " + starName);
   }
 
 };
